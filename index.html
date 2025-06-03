@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Aprende Python</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
+</head>
+<body>
+  <h1>Hola, aprende Python aquí 👇</h1>
+  <textarea id="codigo" rows="6">print("Hola mundo")</textarea>
+  <button onclick="ejecutarCodigo()">Ejecutar</button>
+  <pre id="resultado"></pre>
+
+  <script>
+    let pyodideReady = loadPyodide();
+    async function ejecutarCodigo() {
+      const pyodide = await pyodideReady;
+      let codigo = document.getElementById("codigo").value;
+      try {
+        let resultado = await pyodide.runPythonAsync(codigo);
+        document.getElementById("resultado").textContent = resultado;
+      } catch (e) {
+        document.getElementById("resultado").textContent = e;
+      }
+    }
+  </script>
+</body>
+</html>
